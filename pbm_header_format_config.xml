@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- this document defines the format for reading in PBM images - subtype P1,P2,P3 !-->
+<spec>
+<pre>
+	<keys>
+		<key docId="comment" targetKey="comment"/>
+		<key docId="subtype" targetKey="subtype"/>
+		<key docId="imageWidth" targetKey="imageWidth"/>
+		<key docId="imageHeight" targetKey="imageHeight"/>
+		<key docId="bodyValue" targetKey="bodyValue"/>
+		<key docId="maxColorValue" targetKey="maxColorValue"/>
+	</keys>
+	<!-- Variable definition !-->
+	<variables>
+		<Char docId="imageWidth"/>
+		<Char docId="imageHeight"/>
+		<Char docId="break"/>
+		<Char docId="maxColorValue"/>
+		<Char docId="subtype"/>
+        <Char docId="maxSystemInteger" from="system"/>
+        <Char docId="whitespace" from="system"/>
+        <Char docId="p1Range" range="0,1"/>
+
+    </variables>
+	<!-- warnings  exceptions !-->
+	<!-- define comment treatment !-->
+	<procedures>
+		<Procedure className="FromTo" docId="comment">
+			<from>
+				<Char range="#" />
+			</from>
+			<to>
+				<Var docId="break" /> <!--this Var is defined after the subtype(P1,P2,P3) definition!-->
+			</to>
+			<continues-with>
+				<Var docId="break" />
+			</continues-with>
+		</Procedure>
+	</procedures>
+</pre>
+
+<content>
+	<SubContent docId="subtype" state="start"/>
+	<Char range="P" />
+	<Char range="1,2,3,4,5,6"/>
+	<SubContent docId="subtype" state="end"/>
+	<SetVar docId="break" rangeVar="whitespace"/>
+    <Procedure className="SpecificFormatConfigLoader" keyId="subtype" />
+</content>
+<post></post>
+</spec>

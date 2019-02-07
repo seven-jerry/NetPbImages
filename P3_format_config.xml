@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- this document defines the format for reading in PBM images - subtype P1,P2,P3 !-->
+<spec>
+    <content>
+        <SetNumber docId="imageWidth" rangeVarId="maxIntegerValue" breakDocId="whitespace"/>
+        <MultipleOptVar docId="whitespace"/>
+        <SetNumber docId="imageHeight" rangeVarId="maxIntegerValue" breakDocId="whitespace"/>
+        <MultipleOptVar docId="whitespace"/>
+        <SetNumber docId="maxColorValue" rangeVarId="maxIntegerValue" breakDocId="whitespace"/>
+        <MultipleOptVar docId="whitespace"/>
+
+        <Procedure  className="TillEnd" docId="TillEnd">
+            <SetNumber docId="bodyValue" rangeVarId="maxColorValue" breakDocId="whitespace"/>
+            <Var docId="whitespace"/>
+            <SetNumber docId="bodyValue" rangeVarId="maxColorValue" breakDocId="whitespace"/>
+            <Var docId="whitespace"/>
+            <SetNumber docId="bodyValue" rangeVarId="maxColorValue" breakDocId="whitespace"/>
+            <Var docId="whitespace"/>
+        </Procedure>
+    </content>
+</spec>
+

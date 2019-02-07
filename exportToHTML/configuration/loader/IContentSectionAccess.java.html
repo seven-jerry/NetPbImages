@@ -1,0 +1,32 @@
+<html>
+<head>
+<title>IContentSectionAccess.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: #606366; font-weight: normal; font-style: normal; }
+.s0 { color: rgb(204,120,50); }
+.s1 { color: rgb(169,183,198); }
+</style>
+</head>
+<BODY BGCOLOR="#2b2b2b">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+IContentSectionAccess.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<a name="l1"><span class="ln">1    </span></a><span class="s0">package </span><span class="s1">configuration.loader</span><span class="s0">;</span><span class="s1"> 
+<a name="l2"><span class="ln">2    </span></a> 
+<a name="l3"><span class="ln">3    </span></a></span><span class="s0">import <a href="../../processing/datatype/subcontent/SubContent.java.html">processing.datatype.subcontent.SubContent</a>;</span><span class="s1"> 
+<a name="l4"><span class="ln">4    </span></a></span><span class="s0">import <a href="../../processing/validation/ICharContentProccessor.java.html">processing.validation.ICharContentProccessor</a>;</span><span class="s1"> 
+<a name="l5"><span class="ln">5    </span></a> 
+<a name="l6"><span class="ln">6    </span></a></span><span class="s0">public interface </span><span class="s1">IContentSectionAccess { 
+<a name="l7"><span class="ln">7    </span></a>    </span><span class="s0">void </span><span class="s1">putSubContent(String docId</span><span class="s0">, <a href="../../processing/datatype/subcontent/SubContent.java.html">SubContent</a> </span><span class="s1">subContent)</span><span class="s0">;</span><span class="s1"> 
+<a name="l8"><span class="ln">8    </span></a>    <a href="../../processing/datatype/subcontent/SubContent.java.html">SubContent</a> getSubContent(String docId)</span><span class="s0">;</span><span class="s1"> 
+<a name="l9"><span class="ln">9    </span></a>    </span><span class="s0">void </span><span class="s1">updateDocId(String docId</span><span class="s0">, </span><span class="s1">String value)</span><span class="s0">;</span><span class="s1"> 
+<a name="l10"><span class="ln">10   </span></a>    </span><span class="s0">void </span><span class="s1">setCharValidator(<a href="../../processing/validation/ICharContentProccessor.java.html">ICharContentProccessor</a> validator)</span><span class="s0">;</span><span class="s1"> 
+<a name="l11"><span class="ln">11   </span></a>    </span><span class="s0">boolean </span><span class="s1">hasCharValidator()</span><span class="s0">;</span><span class="s1"> 
+<a name="l12"><span class="ln">12   </span></a>} 
+<a name="l13"><span class="ln">13   </span></a></span></pre>
+</body>
+</html>
