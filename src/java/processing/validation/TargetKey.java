@@ -1,5 +1,8 @@
 package processing.validation;
 
+import java.util.Optional;
+import java.util.stream.Stream;
+
 public enum TargetKey {
     COMMENT("comment"),
     SUBTYPE("subtype"),
@@ -9,12 +12,12 @@ public enum TargetKey {
     MAX_COLOR_VALUE("maxColorValue");
     String stringKey;
     public static TargetKey getEnum(String key){
-        for(TargetKey targetKey: TargetKey.values()){
-            if(targetKey.stringKey.equals(key) == true){
-                return targetKey;
-            }
-        }
-        throw new NullPointerException();
+
+        Optional<TargetKey> targetKey = Stream.of(TargetKey.values())
+                .filter(t -> t.stringKey.equals(key))
+                .findAny();
+
+        return targetKey.orElseThrow(NullPointerException::new);
     }
     TargetKey(String stringKey){
         this.stringKey = stringKey;

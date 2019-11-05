@@ -2,48 +2,28 @@ package util;
 
 import processing.validation.TargetKey;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 public class ReflectionUtil {
-    public static void callValueAnnotatedMethod(Object thisRef, String value) {
-        try {
-            Method[] methods = thisRef.getClass().getDeclaredMethods();
-            for (Method method : methods) {
-                if (method.isAnnotationPresent(ValueAnnotation.class)) {
-                    String methodValue = method.getAnnotation(ValueAnnotation.class).value();
-                    if (methodValue.equals(value)) {
-                        method.invoke(thisRef);
-                        return;
-                    }
-                }
-            }
-        } catch (IllegalAccessException e) {
-            System.out.println("ReflectionUtil - callValueAnnotatedMethod : IllegalAccessException");
-        } catch (InvocationTargetException e) {
-            System.out.println("ReflectionUtil - callValueAnnotatedMethod : InvocationTargetException");
-        }
+    public static void callValueAnnotatedMethod(Object thisRef, final String value) {
+        Method[] methods = thisRef.getClass().getDeclaredMethods();
+        Stream.of(methods).filter(m -> m.isAnnotationPresent(ValueAnnotation.class))
+                .filter(m -> m.getAnnotation(ValueAnnotation.class).value().equals(value))
+                .forEach(m -> invokeMethod(thisRef, m));
     }
 
-    public static void callTargetAnnotatedMethod(Object thisRef, TargetKey key, String value) {
-        try {
-            Method[] methods = thisRef.getClass().getDeclaredMethods();
-            for (Method method : methods) {
-                if (method.isAnnotationPresent(TargetKeyReciever.class)) {
-                    TargetKey methodValue = method.getAnnotation(TargetKeyReciever.class).value();
-                    if (methodValue.equals(key)) {
-                        method.invoke(thisRef, value);
-                        return;
-                    }
-                }
-            }
-        } catch (IllegalAccessException e) {
-            System.out.println("ReflectionUtil - callValueAnnotatedMethod : IllegalAccessException");
-        } catch (InvocationTargetException e) {
-            System.out.println("ReflectionUtil - callValueAnnotatedMethod : InvocationTargetException");
-        }
+    public static void callTargetAnnotatedMethod(Object thisRef, TargetKey key) {
+        Method[] methods = thisRef.getClass().getDeclaredMethods();
+        Stream.of(methods).filter(m -> m.isAnnotationPresent(TargetKeyReciever.class))
+                .filter(m -> m.getAnnotation(TargetKeyReciever.class).value().equals(key))
+                .forEach(m -> invokeMethod(thisRef, m));
     }
+
 
     public static Object createNewInstance(String className) {
         try {
@@ -62,5 +42,15 @@ public class ReflectionUtil {
             System.out.println("ReflectionUtil - createNewInstance : InstantiationException");
         }
         return null;
+    }
+
+    private static void invokeMethod(Object thisRef, Method method) {
+        try {
+            method.invoke(thisRef);
+        } catch (IllegalAccessException e) {
+            System.out.println("ReflectionUtil - callValueAnnotatedMethod : IllegalAccessException");
+        } catch (InvocationTargetException e) {
+            System.out.println("ReflectionUtil - callValueAnnotatedMethod : InvocationTargetException");
+        }
     }
 }

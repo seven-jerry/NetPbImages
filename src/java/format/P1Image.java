@@ -1,6 +1,8 @@
 package format;
 
 
+import java.util.Optional;
+
 public class P1Image extends PBMImage {
 
 
@@ -15,21 +17,24 @@ public class P1Image extends PBMImage {
 
     @Override
     public String toString() {
-        String imageString = this.getSubtypeName() + "\n";
+        StringBuilder imageString = new StringBuilder(this.getSubtypeName() + "\n");
         for (String comment : this.comment) {
-            imageString += comment + "\n";
+            imageString.append(comment).append("\n");
         }
-        imageString += this.width + " " + this.height + "\n";
+        imageString.append(this.width).append(" ").append(this.height).append("\n");
         int counter = 0;
         for (Integer bodyValue : this.bodyValues) {
-            imageString += bodyValue;
+            imageString.append(bodyValue);
             counter++;
-            if (counter % this.width == 0) {
-                imageString += "\n";
-            } else {
-                imageString += " ";
-            }
+            Optional.of(counter)
+                    .filter(c -> c % this.width == 0)
+                    .ifPresent(c -> imageString.append("\n"));
+
+            Optional.of(counter)
+                    .filter(c -> c % this.width != 0)
+                    .ifPresent(c -> imageString.append(" "));
+
         }
-        return imageString;
+        return imageString.toString();
     }
 }

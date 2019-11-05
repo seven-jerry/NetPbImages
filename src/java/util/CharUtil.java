@@ -3,6 +3,7 @@ package util;
 import processing.validation.ICharCompareCallback;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public class CharUtil {
 
@@ -18,10 +19,15 @@ public class CharUtil {
     public static void inRange(String needle, String range, ICharCompareCallback callback){
         Objects.requireNonNull(needle);
         Objects.requireNonNull(range);
-        if(range.indexOf(needle) != -1){
-            callback.success(needle);
-            return;
-        }
-        callback.fail(needle);
+        boolean isPresent = Optional.of(range).filter(r -> r.contains(needle))
+                .isPresent();
+
+        Optional.of(isPresent)
+                .filter(b -> b)
+                .ifPresent(b -> callback.success(needle));
+
+        Optional.of(isPresent)
+                .filter(b -> !b)
+                .ifPresent(b -> callback.fail(needle));
     }
 }

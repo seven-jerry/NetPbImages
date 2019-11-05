@@ -187,7 +187,7 @@ public class PBMImageBuilder implements IPBMImageBuilderConstructor, IPreSection
     private void updateTargetDocId(String docId, String value) {
         try {
             TargetKey targetKey = this.targetKeys.get(docId);
-            ReflectionUtil.callTargetAnnotatedMethod(this.buildDelegate, targetKey, value);
+            ReflectionUtil.callTargetAnnotatedMethod(this.buildDelegate, targetKey);
 
         } catch (NullPointerException e) {
 
